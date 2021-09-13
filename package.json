@@ -4,6 +4,7 @@
   "main": "index.mjs",
   "type": "module",
   "dependencies": {
+    "benchpressjs": "^2.4.3",
     "express": "^4.17.1",
     "node-fetch": "^3.0.0"
   },

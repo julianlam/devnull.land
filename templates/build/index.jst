@@ -1,0 +1,20 @@
+
+(function (factory) {
+  if (typeof module === 'object' && module.exports) {
+    module.exports = factory();
+  } else if (typeof define === 'function' && define.amd) {
+    define(factory);
+  }
+})(function () {
+  function compiled(helpers, context, guard, iter, helper) {
+    var __escape = helpers.__escape;
+    var value = context;
+    return "<h1>devnull.land</h1>\n<h2>Miscellaneous bits and bobs from the tech world</h2>\n<hr />\n<h3>Blog Directory</h3>";
+  }
+
+  compiled.blocks = {
+    
+  };
+
+  return compiled;
+})
