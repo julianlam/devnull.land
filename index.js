@@ -61,13 +61,13 @@ const checkGists = async (req, res, next) => {
 	}
 
 	next();
-}
+};
 
 await refreshGists();
 
 app.get('/', checkGists, async (req, res) => {
 	const gists = [];
-	for (let [filename, gist] of _gists) {
+	for (const [filename, gist] of _gists) {
 		gist.url = filename.slice(0, -3);
 		gist.title = gist.title.replace('#blog', '');
 		gists.push(gist);
@@ -79,7 +79,7 @@ app.get('/', checkGists, async (req, res) => {
 app.get('/:title', checkGists, async (req, res) => {
 	const gist = _gists.get(`${req.params.title}.md`);
 	res.render('post', gist);
-})
+});
 
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
