@@ -9,11 +9,28 @@
   function compiled(helpers, context, guard, iter, helper) {
     var __escape = helpers.__escape;
     var value = context;
-    return "<h1>devnull.land</h1>\n<h2>Miscellaneous bits and bobs from the tech world</h2>\n<hr />\n<h3>Blog Directory</h3>";
+    return "<html>\n<head>\n\t<style>\n\t\ttable {\n\t\t\twidth: 100%;\n\t\t}\n\n\t\tth, td {\n\t\t\ttext-align: left;\n\t\t\tpadding: 1em;\n\t\t}\n\t</style>\n</head>\n<body>\n\t<h1>devnull.land</h1>\n\t<em>Miscellaneous bits and bobs from the tech world</em>\n\t<hr />\n\t<table>\n\t\t<thead>\n\t\t\t<tr>\n\t\t\t\t<th>Title</th>\n\t\t\t\t<th>Date</th>\n\t\t\t</tr>\n\t\t</thead>\n\t\t<tbody>\n\t\t\t" + 
+      compiled.blocks['gists'](helpers, context, guard, iter, helper) + 
+      "\n\t\t</tbody>\n\t</table>\n</body>\n</html>";
   }
 
   compiled.blocks = {
-    
+    'gists': function gists(helpers, context, guard, iter, helper) {
+      var __escape = helpers.__escape;
+      var value = context;
+      return iter(guard((context != null) ? context['gists'] : null), function each(key0, index, length, value) {
+        var key = key0;
+        return "\n\t\t\t<tr>\n\t\t\t\t<td>\n\t\t\t\t\t<a href=\"" + 
+          __escape(guard((context != null && context['gists'] != null && context['gists'][key0] != null) ? context['gists'][key0]['url'] : null)) + 
+          "\">" + 
+          __escape(guard((context != null && context['gists'] != null && context['gists'][key0] != null) ? context['gists'][key0]['title'] : null)) + 
+          "</a>\n\t\t\t\t</td>\n\t\t\t\t<td>\n\t\t\t\t\t" + 
+          __escape(guard((context != null && context['gists'] != null && context['gists'][key0] != null) ? context['gists'][key0]['created_at'] : null)) + 
+          "\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t";
+      }, function alt() {
+        return "";
+      });
+    }
   };
 
   return compiled;

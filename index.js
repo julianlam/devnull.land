@@ -1,5 +1,3 @@
-
-
 /* globals import */
 
 import fetch from 'node-fetch';
@@ -9,7 +7,7 @@ import path, { dirname } from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));	// eslint-disable-line
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const fsPromises = fs.promises;
 
 const app = express();
@@ -17,7 +15,7 @@ const port = 3000;
 
 // Precompile templates
 const viewsDir = path.join(__dirname, 'templates');
-['index'].forEach(async (tpl) => {
+['index', 'post'].forEach(async (tpl) => {
 	const template = await fsPromises.readFile(path.join(viewsDir, `${tpl}.tpl`));
 	const precompiled = await benchpress.precompile(template.toString(), { filename: `${tpl}.tpl` });
 	await fsPromises.writeFile(path.join(viewsDir, 'build', `${tpl}.jst`), precompiled);
@@ -48,28 +46,40 @@ const refreshGists = async () => {
 			markdown,
 			title: gist.description,
 			created_at: gist.created_at,
+			timestamp: new Date(gist.created_at).getTime(),
 		});
 	}));
 };
-
-await refreshGists();
-
-app.get('/', async (req, res) => {
-	const resonse = await fetch('https://api.github.com/users/julianlam/gists', {
+const checkGists = async (req, res, next) => {
+	const response = await fetch('https://api.github.com/users/julianlam/gists', {
 		method: 'head',
 	});
-	const etag = resonse.headers.get('etag');
+	const etag = response.headers.get('etag');
 
 	if (etag !== _gistsETag) {
 		await refreshGists();
 	}
 
-	// TODO: this is still a js map, turn it into an array for benchpress.
+	next();
+}
 
-	res.render('index', {
-		gists: _gists,
-	});
+await refreshGists();
+
+app.get('/', checkGists, async (req, res) => {
+	const gists = [];
+	for (let [filename, gist] of _gists) {
+		gist.url = filename.slice(0, -3);
+		gist.title = gist.title.replace('#blog', '');
+		gists.push(gist);
+	}
+
+	res.render('index', { gists });
 });
+
+app.get('/:title', checkGists, async (req, res) => {
+	const gist = _gists.get(`${req.params.title}.md`);
+	res.render('post', gist);
+})
 
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
