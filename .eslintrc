@@ -1,7 +1,6 @@
 {
 	"extends": "nodebb",
 	"parserOptions": {
-		"sourceType": "module",
-		"ecmaVersion": "latest"
+		"sourceType": "module"
 	}
 }
