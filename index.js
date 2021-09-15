@@ -6,16 +6,17 @@ import path, { dirname } from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { _gists, check, get } from './lib/gists.js';
+import middleware from './lib/middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const fsPromises = fs.promises
+const fsPromises = fs.promises;
 
 const app = express();
 const port = 3000;
 
 // Precompile templates
 const viewsDir = path.join(__dirname, 'templates');
-['index', 'post'].forEach(async (tpl) => {
+['header', 'footer', 'index', 'post'].forEach(async (tpl) => {
 	const template = await fsPromises.readFile(path.join(viewsDir, `${tpl}.tpl`));
 	const precompiled = await benchpress.precompile(template.toString(), { filename: `${tpl}.tpl` });
 	await fsPromises.writeFile(path.join(viewsDir, 'build', `${tpl}.jst`), precompiled);
@@ -25,6 +26,8 @@ const viewsDir = path.join(__dirname, 'templates');
 app.engine('jst', benchpress.__express);
 app.set('view engine', 'jst');
 app.set('views', path.join(viewsDir, 'build'));
+
+app.use(middleware.processRender);
 
 await get();
 
