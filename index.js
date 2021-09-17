@@ -28,6 +28,7 @@ app.set('view engine', 'jst');
 app.set('views', path.join(viewsDir, 'build'));
 
 app.use(middleware.processRender);
+app.use('/milligram', express.static('node_modules/milligram/dist'));
 
 await get();
 
