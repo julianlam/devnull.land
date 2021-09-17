@@ -12,7 +12,7 @@
 					{{{ each gists }}}
 					<tr>
 						<td>
-							<a href="{./url}">{./title}</a>
+							<a href="/{./url}">{./title}</a>
 						</td>
 						<td>
 							{./dateString}

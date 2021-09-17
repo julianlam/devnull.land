@@ -36,7 +36,6 @@ app.get('/', check, async (req, res) => {
 	const gists = [];
 	for (const [filename, gist] of _gists) {
 		gist.url = filename.slice(0, -3);
-		gist.title = gist.title.replace('#blog', '');
 		gists.push(gist);
 	}
 
