@@ -39,7 +39,7 @@ app.get('/', check, async (req, res) => {
 		gists.push(gist);
 	}
 
-	gists.sort((a, b) => a.timestamp - b.timestamp);
+	gists.sort((a, b) => b.timestamp - a.timestamp);
 
 	res.render('index', { gists });
 });
