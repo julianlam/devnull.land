@@ -14,7 +14,7 @@ It listens on port 3000. You'll probably want nginx in front to proxy requests t
 
 `node index.js` starts the app. You'll probably want a nice `systemd` config to automate running this (and restarting if it falls over.)
 
-There are two configuration variables:
+There are two environment variables you can set:
 
 * `BASE_URL` &ndash; is the URL of the site, it is used in the sitemap *(default: `devnull.land`)*
 * `GITHUB_USERNAME` &ndash; is your GitHub username. This app uses your username to get your gists *(default: `julianlam`)*
