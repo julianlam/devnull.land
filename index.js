@@ -5,8 +5,11 @@ import benchpress from 'benchpressjs';
 import path, { dirname } from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { SitemapStream, streamToPromise } from 'sitemap';
+import { Readable } from 'stream';
+
 import { _gists, check, get } from './lib/gists.js';
-import middleware from './lib/middleware.js';
+import { processRender } from './lib/middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const fsPromises = fs.promises;
@@ -27,7 +30,7 @@ app.engine('jst', benchpress.__express);
 app.set('view engine', 'jst');
 app.set('views', path.join(viewsDir, 'build'));
 
-app.use(middleware.processRender);
+app.use(processRender);
 app.use('/milligram', express.static('node_modules/milligram/dist'));
 
 await get();
@@ -42,6 +45,35 @@ app.get('/', check, async (req, res) => {
 	gists.sort((a, b) => b.timestamp - a.timestamp);
 
 	res.render('index', { gists });
+});
+
+app.get('/sitemap.xml', check, async (req, res) => {
+	const gists = [];
+	for (const [filename, gist] of _gists) {
+		gist.url = filename.slice(0, -3);
+		gists.push(gist);
+	}
+
+	const links = gists.map((gist) => {
+		return {
+			url: `/${gist.name.slice(0, -3)}`,
+			changefreq: 'monthly',
+			priority: 0.75,
+		}
+	});
+	links.unshift({
+		url: '/',
+		changefreq: 'weekly',
+		priority: 1,
+	});
+
+	// Create a stream to write to
+	const stream = new SitemapStream( { hostname: 'https://devnull.land' } )
+
+	// Return a promise that resolves with your XML string
+	const xml = (await streamToPromise(Readable.from(links).pipe(stream))).toString();
+
+	res.type('xml').send(xml);
 });
 
 app.get('/:title', check, async (req, res) => {
