@@ -17,6 +17,11 @@ const fsPromises = fs.promises;
 const app = express();
 const port = 3000;
 
+// Hardcoded configs ftw
+const _config = Object.freeze({
+	url: 'https://devnull.land',
+});
+
 // Precompile templates
 const viewsDir = path.join(__dirname, 'templates');
 ['header', 'footer', 'index', 'post', '404'].forEach(async (tpl) => {
@@ -68,7 +73,7 @@ app.get('/sitemap.xml', check, async (req, res) => {
 	});
 
 	// Create a stream to write to
-	const stream = new SitemapStream( { hostname: 'https://devnull.land' } )
+	const stream = new SitemapStream( { hostname: _config.url } )
 
 	// Return a promise that resolves with your XML string
 	const xml = (await streamToPromise(Readable.from(links).pipe(stream))).toString();
