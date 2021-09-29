@@ -19,7 +19,7 @@ const port = 3000;
 
 // Precompile templates
 const viewsDir = path.join(__dirname, 'templates');
-['header', 'footer', 'index', 'post'].forEach(async (tpl) => {
+['header', 'footer', 'index', 'post', '404'].forEach(async (tpl) => {
 	const template = await fsPromises.readFile(path.join(viewsDir, `${tpl}.tpl`));
 	const precompiled = await benchpress.precompile(template.toString(), { filename: `${tpl}.tpl` });
 	await fsPromises.writeFile(path.join(viewsDir, 'build', `${tpl}.jst`), precompiled);
@@ -76,9 +76,17 @@ app.get('/sitemap.xml', check, async (req, res) => {
 	res.type('xml').send(xml);
 });
 
-app.get('/:title', check, async (req, res) => {
-	const gist = _gists.get(`${req.params.title}.md`);
-	res.render('post', gist);
+app.get('/:title', check, async (req, res, next) => {
+	if (_gists.has(`${req.params.title}.md`)) {
+		const gist = _gists.get(`${req.params.title}.md`);
+		return res.render('post', gist);
+	}
+
+	next();
+});
+
+app.use((req, res, next) => {
+	res.status(404).render('404');
 });
 
 app.listen(port, () => {
