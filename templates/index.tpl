@@ -7,7 +7,12 @@
 					<tr>
 						<td>
 							<a href="/{./url}">{./title}</a><br />
-							<small>{./dateString}</small>
+							<small>
+								{./dateString}
+								{{{ if ./comments }}}
+								| <a href="{./gist_url}#comments">{./comments} comment(s)</a>
+								{{{ end }}}
+							</small>
 						</td>
 					</tr>
 					{{{ end }}}
