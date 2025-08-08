@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "eslint": "9.32.0",
-    "eslint-config-nodebb": "1.1.10",
+    "eslint-config-nodebb": "1.1.11",
     "eslint-plugin-import": "2.32.0"
   }
 }
