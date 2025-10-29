@@ -9,7 +9,7 @@
     "markdown-it": "^12.2.0",
     "milligram": "^1.4.1",
     "node-fetch": "^3.0.0",
-    "sitemap": "^7.0.0"
+    "sitemap": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "9.38.0",
