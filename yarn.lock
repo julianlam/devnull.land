@@ -319,9 +319,9 @@ balanced-match@^1.0.0:
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
 benchpressjs@^2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/benchpressjs/-/benchpressjs-2.4.3.tgz#9327d5e9ab8a329adb36ea6e02167e806b2a7974"
-  integrity sha512-4/NhMXjsGPQr157/k+q07mJkZ1tiFKgMX8kupQJYAcPcK575j/64fAUT423eC+hudAaEe9LNoWj1YkaHmZq36A==
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/benchpressjs/-/benchpressjs-2.5.5.tgz#b7af5fcce326a099a81c538199b49f0921b2897c"
+  integrity sha512-JAbKyN6FSqv/KgRre2VqP0zO38SO3d1DG48g/AFLpBRIyF3lB+c/g9DxXnRKDXHJkOyNJ3nSCuqg814SgZAxEA==
   dependencies:
     lodash "^4.17.21"
     node-cache "^5.1.2"
@@ -412,7 +412,7 @@ call-bound@^1.0.2, call-bound@^1.0.3, call-bound@^1.0.4:
 clone@2.x:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
-  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
+  integrity sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -1896,9 +1896,9 @@ locate-path@^6.0.0:
     p-locate "^5.0.0"
 
 lodash@^4.17.21:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+  version "4.17.23"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
+  integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
 
 markdown-it@^12.2.0:
   version "12.2.0"
