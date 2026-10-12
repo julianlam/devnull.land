@@ -18,6 +18,7 @@ There are two environment variables you can set:
 
 * `BASE_URL` &ndash; is the URL of the site, it is used in the sitemap *(default: `devnull.land`)*
 * `GITHUB_USERNAME` &ndash; is your GitHub username. This app uses your username to get your gists *(default: `julianlam`)*
+* `GITHUB_TOKEN` &ndash; optional. A [personal access token](https://github.com/settings/tokens) (no scopes needed) that raises the GitHub API rate limit from 60 to 5000 requests/hour. Without it, the app relies on the unauthenticated limit, which is shared per IP; the per-request ETag check is designed to keep well within it via free `304` responses, but a busy site on a shared IP can still exhaust it
 
 ## Adding blog posts
 
