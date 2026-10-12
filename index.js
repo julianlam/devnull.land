@@ -49,7 +49,6 @@ app.set('view engine', 'jst');
 app.set('views', path.join(viewsDir, 'build'));
 
 app.use(processRender);
-app.use('/milligram', express.static('node_modules/milligram/dist'));
 
 // Start with an empty cache if the initial fetch fails; `check` refreshes on the first request
 await get().catch((err) => {
