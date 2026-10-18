@@ -16,6 +16,7 @@ const fsPromises = fs.promises;
 
 const app = express();
 const port = 3000;
+const PER_PAGE = 20;
 
 // Last-resort safety net: log and keep serving rather than crashing the process
 process.on('unhandledRejection', (err) => {
@@ -64,7 +65,20 @@ app.get('/', check, asyncHandler(async (req, res) => {
 
 	gists.sort((a, b) => b.timestamp - a.timestamp);
 
-	res.render('index', { gists });
+	const totalPages = Math.max(1, Math.ceil(gists.length / PER_PAGE));
+	let page = parseInt(req.query.page, 10) || 1;
+	page = Math.min(Math.max(1, page), totalPages);
+
+	res.render('index', {
+		gists: gists.slice((page - 1) * PER_PAGE, page * PER_PAGE),
+		page,
+		totalPages,
+		showPagination: totalPages > 1,
+		hasPrev: page > 1,
+		hasNext: page < totalPages,
+		prevPage: page - 1,
+		nextPage: page + 1,
+	});
 }));
 
 app.get('/sitemap.xml', check, asyncHandler(async (req, res) => {

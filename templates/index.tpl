@@ -13,4 +13,19 @@
 		</li>
 		{{{ end }}}
 	</ul>
+	{{{ if showPagination }}}
+	<nav class="pagination" aria-label="Post pages">
+		<span class="side">
+			{{{ if hasPrev }}}
+			<a class="prev" href="/?page={prevPage}">&larr; Newer</a>
+			{{{ end }}}
+		</span>
+		<span class="page-indicator">{page} / {totalPages}</span>
+		<span class="side">
+			{{{ if hasNext }}}
+			<a class="next" href="/?page={nextPage}">Older &rarr;</a>
+			{{{ end }}}
+		</span>
+	</nav>
+	{{{ end }}}
 </main>

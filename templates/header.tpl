@@ -145,6 +145,33 @@
 			text-decoration: underline;
 		}
 
+		.pagination {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 2rem;
+			padding-top: 1.25rem;
+			border-top: 1px solid var(--line);
+			font-size: 0.9375rem;
+		}
+
+		.pagination a {
+			color: var(--accent);
+			text-decoration: none;
+			font-weight: 600;
+		}
+
+		.pagination a:hover,
+		.pagination a:focus {
+			text-decoration: underline;
+		}
+
+		.pagination .side { flex: 1; }
+
+		.pagination .side:last-child { text-align: right; }
+
+		.pagination .page-indicator { color: var(--muted); flex-shrink: 0; }
+
 		/* ---------- Posts ---------- */
 
 		.post { font-size: 1.125rem; }
