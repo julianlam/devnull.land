@@ -100,10 +100,11 @@
 		}
 
 		.post-list li {
-			display: flex;
-			flex-wrap: wrap;
+			display: grid;
+			grid-template-columns: 1fr auto;
 			align-items: baseline;
-			gap: 0.25rem 1rem;
+			column-gap: 1rem;
+			row-gap: 0.25rem;
 			padding: 1rem 0;
 			border-bottom: 1px solid var(--line);
 		}
@@ -111,7 +112,6 @@
 		.post-list li:first-child { padding-top: 0; }
 
 		.post-list a {
-			flex: 1 1 12rem;
 			font-size: 1.25rem;
 			font-weight: 600;
 			line-height: 1.4;
@@ -125,14 +125,19 @@
 			text-decoration: underline;
 		}
 
-		.post-list time,
-		.post-list .comments {
+		.post-list .meta {
+			display: block;
+			text-align: right;
 			white-space: nowrap;
 			font-size: 0.875rem;
 			color: var(--muted);
 		}
 
-		.post-list .comments { text-decoration: none; }
+		.post-list .comments {
+			font-size: 0.875rem;
+			font-weight: 600;
+			text-decoration: none;
+		}
 
 		.post-list .comments:hover,
 		.post-list .comments:focus {
