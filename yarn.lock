@@ -339,7 +339,7 @@ balanced-match@^4.0.2:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-4.0.3.tgz#6337a2f23e0604a30481423432f99eac603599f9"
   integrity sha512-1pHv8LX9CpKut1Zp4EXey7Z8OfH11ONNH6Dhi2WDUt31VVZFXZzKwXcysBgqSumFCmR+0dqjMK5v5JiFHzi0+g==
 
-benchpressjs@^2.4.3:
+benchpressjs@^2.5.5:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/benchpressjs/-/benchpressjs-2.5.5.tgz#b7af5fcce326a099a81c538199b49f0921b2897c"
   integrity sha512-JAbKyN6FSqv/KgRre2VqP0zO38SO3d1DG48g/AFLpBRIyF3lB+c/g9DxXnRKDXHJkOyNJ3nSCuqg814SgZAxEA==
