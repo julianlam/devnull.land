@@ -1,6 +1,6 @@
 # Hi.
 
-This is the minmalist engine that powers https://devnull.land
+This is the minimalist engine that powers https://devnull.land
 
 Feel free to fork it.
 
