@@ -4,7 +4,7 @@ This is the minmalist engine that powers https://devnull.land
 
 Feel free to fork it.
 
-It uses [express](expressjs.com/), [benchpress](https://github.com/benchpressjs/benchpressjs), and [Milligram](//milligram.io). Blog posts are parsed using [markdown-it](https://github.com/markdown-it/markdown-it).
+It uses [express](expressjs.com/) and [benchpress](https://github.com/benchpressjs/benchpressjs). Blog posts are parsed using [markdown-it](https://github.com/markdown-it/markdown-it).
 
 [Read more about it here](https://devnull.land/github-gist-blog).
 
@@ -14,11 +14,12 @@ It listens on port 3000. You'll probably want nginx in front to proxy requests t
 
 `node index.js` starts the app. You'll probably want a nice `systemd` config to automate running this (and restarting if it falls over.)
 
-There are two environment variables you can set:
+There are four environment variables you can set:
 
 * `BASE_URL` &ndash; is the URL of the site, it is used in the sitemap *(default: `devnull.land`)*
 * `GITHUB_USERNAME` &ndash; is your GitHub username. This app uses your username to get your gists *(default: `julianlam`)*
 * `GITHUB_TOKEN` &ndash; optional. A [personal access token](https://github.com/settings/tokens) (no scopes needed) that raises the GitHub API rate limit from 60 to 5000 requests/hour. Without it, the app relies on the unauthenticated limit, which is shared per IP; the per-request ETag check is designed to keep well within it via free `304` responses, but a busy site on a shared IP can still exhaust it
+* `GITHUB_ABOUT_GIST` &ndash; optional. The ID of a gist whose first `.md` file is rendered as the `/about` page (useful for keeping the content out of this repo). When unset, the `/about` page 404s and the About link is hidden from the header
 
 ## Adding blog posts
 
