@@ -9,6 +9,7 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 import { Readable } from 'stream';
 
 import { _gists, check, get } from './lib/gists.js';
+import { enabled as aboutEnabled, getAbout } from './lib/about.js';
 import { processRender } from './lib/middleware.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -34,7 +35,7 @@ const asyncHandler = (fn) => (req, res, next) => {
 // Precompile templates
 const viewsDir = path.join(__dirname, 'templates');
 try {
-	await Promise.all(['header', 'footer', 'index', 'post', '404'].map(async (tpl) => {
+	await Promise.all(['header', 'footer', 'index', 'post', 'about', '404'].map(async (tpl) => {
 		const template = await fsPromises.readFile(path.join(viewsDir, `${tpl}.tpl`));
 		const precompiled = await benchpress.precompile(template.toString(), { filename: `${tpl}.tpl` });
 		await fsPromises.writeFile(path.join(viewsDir, 'build', `${tpl}.jst`), precompiled);
@@ -50,6 +51,12 @@ app.set('view engine', 'jst');
 app.set('views', path.join(viewsDir, 'build'));
 
 app.use(processRender);
+
+// Expose to templates (e.g. the header nav) whether the about page is live
+app.use((req, res, next) => {
+	res.locals.showAbout = aboutEnabled();
+	next();
+});
 
 // Start with an empty cache if the initial fetch fails; `check` refreshes on the first request
 await get().catch((err) => {
@@ -108,6 +115,16 @@ app.get('/sitemap.xml', check, asyncHandler(async (req, res) => {
 	const xml = (await streamToPromise(Readable.from(links).pipe(stream))).toString();
 
 	res.type('xml').send(xml);
+}));
+
+app.get('/about', asyncHandler(async (req, res, next) => {
+	if (!aboutEnabled()) {
+		// no about gist configured; fall through to the 404
+		return next();
+	}
+
+	const aboutHtml = await getAbout();
+	res.render('about', { title: 'About', aboutHtml });
 }));
 
 app.get('/:title', check, asyncHandler(async (req, res, next) => {

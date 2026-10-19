@@ -83,6 +83,15 @@
 			letter-spacing: 1px;
 		}
 
+		.banner .nav-link {
+			font-family: var(--pixel-font);
+			font-size: 10px;
+			letter-spacing: 1px;
+		}
+
+		.banner a.nav:hover .nav-link,
+		.banner a.nav:focus .nav-link { fill: #fbd000; }
+
 		/* ---------- Layout ---------- */
 
 		.wrap {
@@ -485,6 +494,18 @@
 				<text class="tagline" x="480" y="62" text-anchor="middle" fill="#000000" opacity="0.35">bits &amp; bobs from the tech world</text>
 				<text class="tagline" x="480" y="60" text-anchor="middle" fill="#ffffff">bits &amp; bobs from the tech world</text>
 			</a>
+
+			<!-- nav, inside the blank space in the bottom third of the banner -->
+			<a href="/" class="nav">
+				<text class="nav-link" x="440" y="158" text-anchor="middle" fill="#000000" opacity="0.35">Blog</text>
+				<text class="nav-link" x="440" y="156" text-anchor="middle" fill="#ffffff">Blog</text>
+			</a>
+			{{{ if showAbout }}}
+			<a href="/about" class="nav">
+				<text class="nav-link" x="522" y="158" text-anchor="middle" fill="#000000" opacity="0.35">About</text>
+				<text class="nav-link" x="522" y="156" text-anchor="middle" fill="#ffffff">About</text>
+			</a>
+			{{{ end }}}
 		</svg>
 	</header>
 </body>
