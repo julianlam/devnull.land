@@ -1,5 +1,3 @@
-/* globals import */
-
 import express from 'express';
 import benchpress from 'benchpressjs';
 import path, { dirname } from 'path';
@@ -28,7 +26,7 @@ process.on('uncaughtException', (err) => {
 });
 
 // Express 4 does not forward rejections from async handlers to the error middleware
-const asyncHandler = (fn) => (req, res, next) => {
+const asyncHandler = fn => (req, res, next) => {
 	fn(req, res, next).catch(next);
 };
 
@@ -100,7 +98,7 @@ app.get('/sitemap.xml', check, asyncHandler(async (req, res) => {
 			url: `/${gist.name.slice(0, -3)}`,
 			changefreq: 'monthly',
 			priority: 0.75,
-		}
+		};
 	});
 	links.unshift({
 		url: '/',
@@ -109,7 +107,7 @@ app.get('/sitemap.xml', check, asyncHandler(async (req, res) => {
 	});
 
 	// Create a stream to write to
-	const stream = new SitemapStream( { hostname: process.env.BASE_URL || 'https://devnull.land' } )
+	const stream = new SitemapStream({ hostname: process.env.BASE_URL || 'https://devnull.land' });
 
 	// Return a promise that resolves with your XML string
 	const xml = (await streamToPromise(Readable.from(links).pipe(stream))).toString();
